@@ -1,1 +1,4 @@
-<h1>index.php</h1>
+<?php
+include_once '../init.php';
+include_once '../routes.php'
+?>
