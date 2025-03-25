@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        echo 'Login successful';
+        header('Location: /todolist/views/dashboard/index.php');
         exit();
     }
     else{
