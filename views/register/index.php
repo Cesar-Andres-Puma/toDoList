@@ -18,6 +18,9 @@
         <label for="password">Senha:</label>
         <input type="password" name="password" id="password" required>
 
+        <label for="password">Confirme a senha:</label>
+        <input type="password" name="password" id="password" required>
+
         <button type="submit">Cadastrar</button>
     </form>
 
