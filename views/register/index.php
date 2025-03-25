@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <script>
-        // Função para validar se as senhas coincidem
+      
         function validatePassword() {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
 
             if (password !== confirmPassword) {
                 alert("As senhas não coincidem!");
-                return false; // Impede o envio do formulário
+                return false;
             }
-            return true; // Permite o envio do formulário
+            return true; 
         }
     </script>
 </head>
 <body>
     <h1>Cadastro</h1>
     
-    <form action="../../controllers/registerController.php" method="post" style="display: flex; flex-direction: column; width: 200px;" onsubmit="return validatePassword()">
+    <form action="../../../toDoList/controllers/registerController.php" method="post" style="display: flex; flex-direction: column; width: 200px;" onsubmit="return validatePassword()">
         <label for="username">Usuário:</label>
         <input type="text" name="username" id="username" required>
 
