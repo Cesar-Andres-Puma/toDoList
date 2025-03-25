@@ -18,6 +18,7 @@
         }
         ?>
         <button type="submit">Entrar</button>
+        <p>cadastre-se <a href="/todolist/register">aqui</a></p>
     </form>
 </body>
 </html>
