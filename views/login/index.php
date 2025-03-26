@@ -1,3 +1,7 @@
+<?php
+include_once __DIR__ . '/../../config/auth.php';
+redirectIfAuthenticated();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

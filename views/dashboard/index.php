@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . '/../../config/auth.php';
+redirectIfNotAuthenticated();
 
 ?>
 <!DOCTYPE html>
