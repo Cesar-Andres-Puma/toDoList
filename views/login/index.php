@@ -11,7 +11,7 @@ redirectIfAuthenticated();
 </head>
 <body>
     <h1>login</h1>
-    <form action="../../controllers/authController.php" style="display: flex; flex-direction: column; width: 200px;" method="post">
+    <form action="/toDoList/controllers/authController.php" style="display: flex; flex-direction: column; width: 200px;" method="post">
         <label for="username">Usuario:</label>
         <input type="text" name="username" id="username" required>
         <label for="password">Senha:</label>
