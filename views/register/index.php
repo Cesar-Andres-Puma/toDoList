@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <script>
         function validatePassword() {
             const password = document.getElementById('password').value;
@@ -14,10 +20,41 @@
                 alert("As senhas não coincidem!");
                 return false;
             }
-            return true; 
+            return true;
+        }
+
+        function togglePassword(id, iconId) {
+            const input = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash"); // Olho fechado
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye"); // Olho aberto
+            }
         }
     </script>
+    <style>
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            /* Cor neutra */
+        }
+    </style>
 </head>
+
 <body class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #f4f4f9;">
 
     <div class="container">
@@ -26,7 +63,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Cadastro</h3>
-                        
+
                         <form action="../../../toDoList/controllers/registerController.php" method="post" onsubmit="return validatePassword()">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Usuário</label>
@@ -40,24 +77,36 @@
 
                             <div class="mb-3">
                                 <label for="password" class="form-label">Senha</label>
-                                <input type="password" class="form-control" name="password" id="password" required>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-control" name="password" id="password" required>
+                                    <i id="iconPassword" class="bi bi-eye toggle-password" onclick="togglePassword('password', 'iconPassword')"></i>
+                                </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="confirm_password" class="form-label">Confirmar Senha</label>
-                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                                    <i id="iconConfirmPassword" class="bi bi-eye toggle-password" onclick="togglePassword('confirm_password', 'iconConfirmPassword')"></i>
+                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
-                        </form>
-
-                        <p class="text-center mt-3">Já tem uma conta? <a href="/todolist" class="link-primary">Faça login</a></p>
                     </div>
+
+                    <div style="display: flex; justify-content:center; align-items:center;">
+                    <button type="submit" class="btn btn-primary w-50" >Cadastrar</button>
+                    </div>
+                    </form>
+
+                    <p class="text-center mt-3">Já tem uma conta? <a href="/todolist" class="link-primary">Faça login</a></p>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

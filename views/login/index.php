@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script>
+         function togglePassword(id, iconId) {
+            const input = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash"); // Olho fechado
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye"); // Olho aberto
+            }
+        }
+    </script>
+    <style>
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            /* Cor neutra */
+        }
+    </style>
 </head>
 <body class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #f4f4f9;">
 
@@ -22,13 +54,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Senha</label>
-                                <input type="password" class="form-control" name="password" id="password" required>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-control" name="password" id="password" required>
+                                    <i id="iconPassword" class="bi bi-eye toggle-password" onclick="togglePassword('password', 'iconPassword')"></i>
+                                </div>
                             </div>
-                            <?php
-                            if (isset($_GET['error'])) {
-                                echo '<p class="text-danger">' . htmlspecialchars($_GET['error']) . '</p>';
-                            }
-                            ?>
                             <button type="submit" class="btn btn-primary w-100">Entrar</button>
                         </form>
                         
