@@ -5,19 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <script>
+        // Função para validar se as senhas coincidem
         function validatePassword() {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
 
             if (password !== confirmPassword) {
-                alert("As senhas não coincidem!");
                 return false;
             }
             return true;
@@ -30,14 +27,42 @@
             if (input.type === "password") {
                 input.type = "text";
                 icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash"); // Olho fechado
+                icon.classList.add("bi-eye-slash");
             } else {
                 input.type = "password";
                 icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye"); // Olho aberto
+                icon.classList.add("bi-eye");
             }
         }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("registerForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+
+                fetch("../../../toDoList/controllers/registerController.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const messageDiv = document.getElementById("message");
+                        messageDiv.innerHTML = "";
+
+                        if (data.status === "error") {
+                            messageDiv.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                        } else {
+                            messageDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                            setTimeout(() => window.location.href = "/todolist/views/login/index.php", 2000); // Redireciona após 2 segundos
+                        }
+                    })
+                    .catch(error => console.error("Erro:", error));
+            });
+        });
     </script>
+
     <style>
         .password-wrapper {
             position: relative;
@@ -63,8 +88,8 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Cadastro</h3>
-
-                        <form action="../../../toDoList/controllers/registerController.php" method="post" onsubmit="return validatePassword()">
+                        <div id="message"></div>
+                        <form id="registerForm" method="post" onsubmit="return validatePassword()">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Usuário</label>
                                 <input type="text" class="form-control" name="username" id="username" required>
@@ -91,22 +116,21 @@
                                 </div>
                             </div>
 
-                    </div>
+                            <div style="display: flex; justify-content:center; align-items:center;">
+                                <button type="submit" class="btn btn-primary w-50">Cadastrar</button>
+                            </div>
+                        </form>
 
-                    <div style="display: flex; justify-content:center; align-items:center;">
-                    <button type="submit" class="btn btn-primary w-50" >Cadastrar</button>
+                        <p class="text-center mt-3">Já tem uma conta? <a href="/todolist" class="link-primary">Faça login</a></p>
                     </div>
-                    </form>
-
-                    <p class="text-center mt-3">Já tem uma conta? <a href="/todolist" class="link-primary">Faça login</a></p>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
