@@ -2,26 +2,36 @@
 include_once __DIR__ . '/../init.php';
 include_once __DIR__ . '/../models/auth.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(!isset($_POST['username']) || !isset($_POST['password'])){
-        echo 'Invalid request';
+header("Content-Type: application/json"); // Define o JSON na resposta
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST['username']) || !isset($_POST['password'])) {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Preencha todos os campos.'
+        ]);
         exit();
     }
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
     $user = authenticateUser($username, $password, $pdo);
 
-    if($user){
-      
+    if ($user) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        header('Location: /todolist/views/dashboard/index.php');
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Login realizado com sucesso!'
+        ]);
         exit();
-    }
-    else{
-        echo 'Invalid username or password';
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Usuário ou senha inválidos.'
+        ]);
         exit();
     }
 }

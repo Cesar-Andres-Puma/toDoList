@@ -21,6 +21,30 @@
                 icon.classList.add("bi-eye"); // Olho aberto
             }
         }
+        document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita recarregar a página
+
+        const formData = new FormData(this);
+
+        fetch("/toDoList/controllers/authController.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messageDiv = document.getElementById("message");
+            messageDiv.innerHTML = ""; // Limpa mensagens anteriores
+
+            if (data.status === "error") {
+                messageDiv.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+            } else if (data.status === "success") {
+                window.location.href = "/todolist/views/dashboard/index.php"; // Redireciona se sucesso
+            }
+        })
+        .catch(error => console.error("Erro:", error));
+    });
+});
     </script>
     <style>
         .password-wrapper {
@@ -47,20 +71,21 @@
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Login</h3>
                         
-                        <form action="/toDoList/controllers/authController.php" method="post">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Usuário</label>
-                                <input type="text" class="form-control" name="username" id="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Senha</label>
-                                <div class="password-wrapper">
-                                    <input type="password" class="form-control" name="password" id="password" required>
-                                    <i id="iconPassword" class="bi bi-eye toggle-password" onclick="togglePassword('password', 'iconPassword')"></i>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Entrar</button>
-                        </form>
+                        <form id="loginForm">
+    <div class="mb-3">
+        <label for="username" class="form-label">Usuário</label>
+        <input type="text" class="form-control" name="username" id="username" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <div class="password-wrapper">
+            <input type="password" class="form-control" name="password" id="password" required>
+            <i id="iconPassword" class="bi bi-eye toggle-password" onclick="togglePassword('password', 'iconPassword')"></i>
+        </div>
+    </div>
+    <div id="message" class="text-danger"></div> <!-- Aqui aparece o erro -->
+    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+</form>
                         
                         <p class="text-center mt-3">Não tem uma conta? <a href="/todolist/register">Cadastre-se aqui</a></p>
                     </div>
