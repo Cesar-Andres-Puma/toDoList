@@ -2,7 +2,7 @@
 include_once __DIR__ . '/../init.php';
 include_once __DIR__ . '/../models/auth.php';
 
-header("Content-Type: application/json"); // Define o JSON na resposta
+header("Content-Type: application/json"); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_POST['username']) || !isset($_POST['password'])) {

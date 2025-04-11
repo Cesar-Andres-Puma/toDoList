@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
     $title = trim($_POST['title'] ?? '');
     $description = trim($_POST['description'] ?? '');
-    $status = 'pending'; // Definido fixo ao criar
+    $status = 'pending'; 
 
     if (empty($title)) {
         echo json_encode(['status' => 'error', 'message' => 'O título é obrigatório.']);
